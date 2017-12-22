@@ -9,14 +9,24 @@ require 'random_data'
 end
 posts = Post.all
 
-#Create comments
+#Unique post
+post = Post.find_or_create_by!(
+  title: "Here's a unique test",
+  body: "Here's the body of that test"
+)
 
+#Create comments
 100.times do
   Comment.create!(
     post: posts.sample,
     body: RandomData.random_paragraph
   )
 end
+
+Comment.find_or_create_by!(
+  post: post,
+  body: "Unique comment"
+)
 
 puts "Seeds finished"
 puts "#{Post.count} posts created"
