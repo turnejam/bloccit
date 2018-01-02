@@ -22,6 +22,7 @@ RSpec.describe PostsController, type: :controller do
          get :show, params: { id: my_post.id }
          expect(response).to have_http_status(:success)
        end
+       
        it "renders the #show view" do
          get :show, params: { id: my_post.id }
          expect(response).to render_template :show
