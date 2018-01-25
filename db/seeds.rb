@@ -1,7 +1,6 @@
 require 'random_data'
 
 # Create Topics
-
 15.times do
   Topic.create!(
     name: RandomData.random_sentence,
@@ -22,6 +21,7 @@ posts = Post.all
 
 #Unique post
 post = Post.find_or_create_by!(
+  topic: topics.sample,
   title: "Here's a unique test",
   body: "Here's the body of that test"
 )
