@@ -1,0 +1,2 @@
+class SponsoredPo < ApplicationRecord
+end
