@@ -19,6 +19,17 @@ topics = Topic.all
 end
 posts = Post.all
 
+#Create sponsored posts
+20.times do
+  SponsoredPost.create!(
+    topic: topics.sample,
+    title: RandomData.random_sentence,
+    body: RandomData.random_paragraph,
+    price: rand(20..55)
+  )
+end
+sponsored_posts = SponsoredPost.all
+
 #Unique post
 post = Post.find_or_create_by!(
   topic: topics.sample,
@@ -42,4 +53,5 @@ Comment.find_or_create_by!(
 puts "Seeds finished"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
+puts "#{SponsoredPost.count} sponsored posts created"
 puts "#{Comment.count} comments created"
