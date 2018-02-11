@@ -24,7 +24,7 @@ RSpec.describe Post, type: :model do
 
   describe "attributes" do
     it "has a title, body, and user attribute" do
-       expect(post).to have_attributes(title: title, body: body, user: user)
+      expect(post).to have_attributes(title: title, body: body, user: user)
     end
   end
 
@@ -60,7 +60,7 @@ RSpec.describe Post, type: :model do
         expect(post.rank).to eq (post.points + (post.created_at - Time.new(1970,1,1)) / 1.day.seconds)
       end
 
-      it "ypdates the rank when an up vote is created" do
+      it "updates the rank when an up vote is created" do
         old_rank = post.rank
         post.votes.create!(value: 1, user: user)
         expect(post.rank).to eq (old_rank +1)
@@ -71,6 +71,22 @@ RSpec.describe Post, type: :model do
         post.votes.create!(value: -1, user: user)
         expect(post.rank).to eq (old_rank - 1)
       end
+    end
+  end
+
+  describe "#create_vote callback" do
+    it "triggers #create_vote on save" do
+      post = topic.posts.new(title:RandomData.random_sentence, body:RandomData.random_paragraph, user: user)
+      expect(post).to receive(:create_vote).at_least(:once)
+      post.save
+    end
+
+    it "up_votes to 1" do
+      expect(post.up_votes).to eq(1)
+    end
+
+    it "votes as the current_user" do
+      expect(post.votes.first.user).to eq(post.user)
     end
   end
 end
