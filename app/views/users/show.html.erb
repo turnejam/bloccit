@@ -10,10 +10,14 @@
       <% end %>
       <div class="media-body">
         <h2 class="media-heading"><%= @user.name %></h2>
+        <% unless user_has_posted? %>
+        <small><%= "#{@user.name} has not submitted any posts or comments yet" %></small>
+        <% else %>
         <small>
           <%= pluralize(@user.posts.count, 'post') %>,
           <%= pluralize(@user.comments.count, 'comment') %>
         </small>
+        <% end %>
       </div>
     </div>
   </div>
@@ -24,3 +28,6 @@
 
 <h2>Comments</h2>
 <%= render @user.comments %>
+
+<h2> Favorites </h2>
+<%= render @user.favorite_posts %>
