@@ -21,6 +21,6 @@ class FavoriteMailer < ApplicationMailer
 
      @post = post
 
-     mail(to: user.email, subject: "You are now following your post, #{post.title}.")
+     mail(to: post.user.email, subject: "You are now following your post, #{post.title}.")
    end
 end
